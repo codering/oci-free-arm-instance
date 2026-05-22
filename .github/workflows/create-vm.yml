@@ -10,10 +10,10 @@ env:
   SUPPRESS_LABEL_WARNING: true
 
   # 2. Mumbai Configuration (Verified)
-  OCI_CLI_REGION: "us-phoenix-1"
-  AD_NAME: "btlr:PHX-AD-1"
-  IMAGE_ID: "ocid1.image.oc1.phx.aaaaaaaazd3uynnsb57b76dp3c4hkdo2fjjgz5jase5y3cmvttjvpgwnwq4q"
-  SUBNET_ID: "ocid1.vcn.oc1.phx.amaaaaaaqw6mabqasjnj647nedqxwqtslt6dbp4kt3fv3bf4yaiu75swos7a"
+  OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+  AD_NAME: ${{ secrets.AD_NAME }}
+  IMAGE_ID: ${{ secrets.IMAGE_ID }}
+  SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
 
   # 3. Secrets
   COMPARTMENT_ID: ${{ secrets.OCI_COMPARTMENT_ID }}
@@ -68,13 +68,13 @@ jobs:
             --compartment-id "$COMPARTMENT_ID" \
             --availability-domain "$AD_NAME" \
             --shape "VM.Standard.A1.Flex" \
-            --shape-config '{"ocpus":24,"memoryInGBs":24}' \
+            --shape-config '{"ocpus":4,"memoryInGBs":24}' \
             --subnet-id "$SUBNET_ID" \
             --image-id "$IMAGE_ID" \
             --ssh-authorized-keys-file "/home/runner/my_ssh_key.pub" \
             --assign-public-ip true \
             --display-name "coolify-vm" \
-            --boot-volume-size-in-gbs 50 2>&1 || true)
+            --boot-volume-size-in-gbs 200 2>&1 || true)
 
           # Store Log for Discord
           echo "log_data<<EOF" >> $GITHUB_OUTPUT
