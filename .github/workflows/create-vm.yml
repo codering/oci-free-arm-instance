@@ -2,7 +2,7 @@ name: Try to Create OCI VM
 # Runs every 5 minutes
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2-59/5 * * * *"
   workflow_dispatch:
 
 env:
@@ -74,7 +74,7 @@ jobs:
             --ssh-authorized-keys-file "/home/runner/my_ssh_key.pub" \
             --assign-public-ip true \
             --display-name "coolify-vm" \
-            --boot-volume-size-in-gbs 200 2>&1 || true)
+            --boot-volume-size-in-gbs 150 2>&1 || true)
 
           # Store Log for Discord
           echo "log_data<<EOF" >> $GITHUB_OUTPUT
